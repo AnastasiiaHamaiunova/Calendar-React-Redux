@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { EventWindow } from '../../components/EventWindow/EventWindow';
+import { addEventData } from '../../actions/events.action';
 
 class AddEventWindow extends React.Component {
   constructor(props) {
@@ -18,12 +20,30 @@ class AddEventWindow extends React.Component {
       [e.target.name]: e.target.value,
     });
   }
+  addEventData = () => {
+    this.props.addEventData(this.state);
+  }
 
   render() {
     return (
-      <EventWindow setEventData={this.setEventData} />
+      <EventWindow setEventData={this.setEventData} addEventData={this.addEventData} />
     );
   }
 }
+const mapStateToProps = (store) => {
+  return {
+    events: store.events,
+  };
+};
 
-export default connect()(AddEventWindow);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addEventData: data => dispatch(addEventData(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddEventWindow);
+
+AddEventWindow.propTypes = {
+  addEventData: PropTypes.func.isRequired,
+};

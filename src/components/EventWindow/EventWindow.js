@@ -19,11 +19,12 @@ export const EventWindow = (props) => {
           <span>minutes</span>
         </div>
       </div>
-      <button>Add</button>
+      <button onClick={props.addEventData}>Add</button>
     </div>
   );
 };
 
 EventWindow.propTypes = {
   setEventData: PropTypes.func.isRequired,
+  addEventData: PropTypes.func.isRequired,
 };
